@@ -10,3 +10,8 @@ table{
         font-size: xx-large !important;
     }
 }
+
+#ToggleButton{
+    justify-self: center;
+    width:100%;
+}

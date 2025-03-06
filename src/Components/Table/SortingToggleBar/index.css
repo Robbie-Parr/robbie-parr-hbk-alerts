@@ -5,3 +5,11 @@
             font-size: xx-large !important;
         }
 }
+
+#Search{
+    background-color: gainsboro;
+    > tr > th {
+        padding:10px;
+        font-size: xx-large !important;
+    }
+}

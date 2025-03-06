@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 
 
 import {DataStructure} from "../Hooks/UseAllAlerts";
@@ -13,7 +13,7 @@ type Bools = {
     eventName:options,
 }
 
-const useSorting = (data: DataStructure[]) => {
+const useSorting = (data: DataStructure[],setAlerts:Dispatch<SetStateAction<DataStructure[]>>) => {
     const [sortingOptions,setSortingOptions] = useState<Bools>({
         severity:options.None,
         urgency:options.None,
@@ -47,51 +47,58 @@ const useSorting = (data: DataStructure[]) => {
     useEffect(()=> {
         
         switch(sortingOptions?.severity){
-            case options.HighFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.HighFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 (sortingValues.get(a.severity) ?? 0) - (sortingValues.get(b.severity) ?? 0))
+            )
             break;
-            case options.LowFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.LowFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 -1*((sortingValues.get(a.severity) ?? 0) - (sortingValues.get(b.severity)  ?? 0)))
-            break
+            )
+            break;
         }
 
         switch(sortingOptions?.urgency){
-            case options.HighFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.HighFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 (sortingValues.get(a.urgency) ?? 0) - (sortingValues.get(b.urgency) ?? 0))
+            )
             break;
-            case options.LowFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.LowFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 -1*((sortingValues.get(a.urgency) ?? 0) - (sortingValues.get(b.urgency)  ?? 0)))
-            break
+            )
+            break;
         }
 
         switch(sortingOptions?.response){
-            case options.HighFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.HighFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 (sortingValues.get(a.response) ?? 0) - (sortingValues.get(b.response) ?? 0))
+            )
             break;
-            case options.LowFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.LowFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 -1*((sortingValues.get(a.response) ?? 0) - (sortingValues.get(b.response)  ?? 0)))
-            break
+            )
+            break;
         }
 
         switch(sortingOptions?.type){
-            case options.HighFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.HighFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 (sortingValues.get(a.messageType) ?? 0) - (sortingValues.get(b.messageType) ?? 0))
+            )
             break;
-            case options.LowFirst: data.sort((a:DataStructure,b:DataStructure) => 
+            case options.LowFirst: setAlerts([...data].sort((a:DataStructure,b:DataStructure) => 
                 -1*((sortingValues.get(a.messageType) ?? 0) - (sortingValues.get(b.messageType)  ?? 0)))
-            break
+            )
+            break;
         }
 
         switch(sortingOptions?.eventName){
-            case options.HighFirst: data.sort()
+            case options.HighFirst: setAlerts([...data].sort())
             break;
-            case options.LowFirst: data.sort().reverse()
-            break
+            case options.LowFirst: setAlerts([...data].sort().reverse())
+            break;
         }
-
     },[sortingOptions])
 
-    
+
     const SortBySeverity = () => {
         SortBy(sortingOptions?.severity,"severity")
         
@@ -130,7 +137,7 @@ const useSorting = (data: DataStructure[]) => {
 
     
 
-    return {data,
+    return {
         sortingOptions,
         SortBySeverity,
         SortByUrgency,
@@ -143,11 +150,3 @@ const useSorting = (data: DataStructure[]) => {
 export default useSorting;
 export {options};
 export type {Bools};
-
-
-/*
-Filter by Alert Type
-Filter by Current Response
-Filter by Current Urgency
-Sort by Alert Severity (Severe, Moderate, Minor)
-*/

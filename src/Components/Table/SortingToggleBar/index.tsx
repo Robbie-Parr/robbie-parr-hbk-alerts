@@ -1,42 +1,64 @@
-import React from "react";
+import React,{Dispatch, SetStateAction, useState} from "react";
 
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 
 import './index.css';
-import {options,Bools} from "../../Hooks/UseSorting";
+import useSorting, {options,Bools} from "../../Hooks/UseSorting";
+import StringInputCell from "./InputCell";
+import { DataStructure } from "../../Hooks/UseAllAlerts";
+import useFiltering from "../../Hooks/UseFiltering";
 
 type SortingToggleBarProps ={
-    sortingOptions:Bools,
-    SortBySeverity:()=>void,
-    SortByUrgency:()=>void,
-    SortByResponse:()=>void,
-    SortByType:()=>void,
-    SortByEventName:()=>void
+    toggle:Boolean,
+    rows:DataStructure[],
+    setAlerts:Dispatch<SetStateAction<DataStructure[]>>,
+    
 }
 
 const SortingToggleBar = ({
-    sortingOptions,
+        toggle,
+        rows,
+        setAlerts
+    }:SortingToggleBarProps) => {
+    
+
+    const {
+        sortingOptions,
         SortBySeverity,
         SortByUrgency,
         SortByResponse,
         SortByType,
         SortByEventName
-        }:SortingToggleBarProps) => {
+    } = useSorting(rows,setAlerts);
+
+    const {
+        filteringInputs,
+        FilterByHeadline,
+        FilterByEventName,
+        FilterByAuthority,
+        FilterByInstructions,
+    } = useFiltering(rows,setAlerts);
     
+    if(!toggle){
+        return(<></>);
+    }
+
+    
+
     return(
         <>
-            {/*<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="row">{row.headline}</TableCell>
-            <TableCell >{row.event} </TableCell>
-            <TableCell >{row.senderName} </TableCell>
-            <TableCell >{row.instruction}</TableCell>
-            <TableCell >{row.messageType}</TableCell>
-            <TableCell >{row.response}</TableCell>
-            <TableCell >{row.urgency}</TableCell>
-            <TableCell >{row.severity}</TableCell>
-        </TableRow> */}
+            <TableRow id="Search">
+                <StringInputCell value={filteringInputs.headline} setfunc={FilterByHeadline}/>
+                <StringInputCell value={filteringInputs.eventName} setfunc={FilterByEventName}/>
+                <StringInputCell value={filteringInputs.authority} setfunc={FilterByAuthority}/>
+                <StringInputCell value={filteringInputs.instructions} setfunc={FilterByInstructions}/>
+                <TableCell align="center">No Filter</TableCell>
+                <TableCell align="center">No Filter</TableCell>
+                <TableCell align="center">No Filter</TableCell>
+                <TableCell align="center">No Filter</TableCell>
+            </TableRow>
 
            <TableRow id="Ordering">
                 <TableCell align="center">No Ordering on Headlines</TableCell>

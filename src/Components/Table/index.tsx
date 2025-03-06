@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -13,33 +13,30 @@ import Row from "./Row";
 import './index.css';
 import useSorting,{options} from "../Hooks/UseSorting";
 import SortingToggleBar from "./SortingToggleBar";
+import { Button } from "@mui/material";
 
 type TableProps = {
     rows:DataStructure[]
+    setAlerts:Dispatch<SetStateAction<DataStructure[]>>
 }
 
-const Table = ({rows}: TableProps) => {
-    const {data,
-        sortingOptions,
-        SortBySeverity,
-        SortByUrgency,
-        SortByResponse,
-        SortByType,
-        SortByEventName
-    } = useSorting(rows);
+const Table = ({rows,setAlerts}: TableProps) => {
+
+
+    const [toggle,setToggle] = useState<Boolean>(true);//false by default
 
     return (
+        <>
+        <Button id="ToggleButton" onClick={() => setToggle(!toggle)}>{toggle? "Hide Options" :"Show Options"}</Button>
         <TableContainer component={Paper}>
             <table>
                 
                 <TableHead>
                 <SortingToggleBar 
-                    sortingOptions={sortingOptions}
-                    SortBySeverity={SortBySeverity}
-                    SortByUrgency={SortByUrgency}
-                    SortByResponse={SortByResponse}
-                    SortByType={SortByType}
-                    SortByEventName={SortByEventName}
+                    toggle={toggle}
+                    rows={rows}
+                    setAlerts={setAlerts}
+                    
                 />
                     <TableRow id="Titles">
                         <TableCell align="center">Alert Headline</TableCell>
@@ -53,12 +50,13 @@ const Table = ({rows}: TableProps) => {
                     </TableRow>
                 </TableHead>
             <TableBody>
-                {data.map((row) => (
+                {rows.map((row) => (
                     <Row key={row.id} row={row}/>
                 ))}
             </TableBody>
         </table>
         </TableContainer>
+        </>
     );
 }
 
