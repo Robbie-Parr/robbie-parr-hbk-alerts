@@ -8,10 +8,6 @@ const App = () => {
     return (
         <div>
             <Table rows={[...value]}/>
-            {value.map((item : DataStructure) => {
-                return (<p>{item.headline}</p>)
-    }
-    )}
         </div>
     )
 }

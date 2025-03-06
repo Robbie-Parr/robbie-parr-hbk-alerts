@@ -34,26 +34,26 @@ const Table = ({rows}: TableProps) => {
                     <TableRow>
                         <TableCell align="center">Alert Headline</TableCell>
                         <TableCell align="center" onClick={SortByEventName}> 
-                            {sortingOptions.eventName==options.HighFirst? "^\n" : 
-                                (sortingOptions.eventName==options.LowFirst? "⌄\n" :"") }
+                            {sortingOptions.eventName===options.HighFirst? "^\n" : 
+                                (sortingOptions.eventName===options.LowFirst? "⌄\n" :"") }
                                 Event Name</TableCell>
                         <TableCell align="center">Alert Authority</TableCell>
                         <TableCell align="center">Instructions</TableCell>
                         <TableCell align="center" onClick={SortByType}>
-                        {sortingOptions.type==options.HighFirst? "^\n" : 
-                                (sortingOptions.type==options.LowFirst? "⌄\n" :"") }
+                        {sortingOptions.type===options.HighFirst? "^\n" : 
+                                (sortingOptions.type===options.LowFirst? "⌄\n" :"") }
                             Alert Type</TableCell>
                         <TableCell align="center" onClick={SortByResponse}>
-                        {sortingOptions.response==options.HighFirst? "^\n" : 
-                                (sortingOptions.response==options.LowFirst? "⌄\n" :"") }
+                        {sortingOptions.response===options.HighFirst? "^\n" : 
+                                (sortingOptions.response===options.LowFirst? "⌄\n" :"") }
                             Currrent Response</TableCell>
                         <TableCell align="center" onClick={SortByUrgency}>
-                        {sortingOptions.urgency==options.HighFirst? "^\n" : 
-                                (sortingOptions.urgency==options.LowFirst? "⌄\n" :"") }
+                        {sortingOptions.urgency===options.HighFirst? "^\n" : 
+                                (sortingOptions.urgency===options.LowFirst? "⌄\n" :"") }
                             Current Urgency</TableCell>
                         <TableCell align="center" onClick={SortBySeverity}>
-                        {sortingOptions.severity==options.HighFirst? "^\n" : 
-                                (sortingOptions.severity==options.LowFirst? "⌄\n" :"") }
+                        {sortingOptions.severity===options.HighFirst? "^\n" : 
+                                (sortingOptions.severity===options.LowFirst? "⌄\n" :"") }
                             Alert Severity</TableCell>
                     </TableRow>
                 </TableHead>
