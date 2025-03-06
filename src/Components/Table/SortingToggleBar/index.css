@@ -1,0 +1,7 @@
+#Ordering{
+        background-color: silver;
+        > tr > th {
+            padding:10px;
+            font-size: xx-large !important;
+        }
+}

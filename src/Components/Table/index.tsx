@@ -12,6 +12,7 @@ import {DataStructure} from "../Hooks/UseAllAlerts";
 import Row from "./Row";
 import './index.css';
 import useSorting,{options} from "../Hooks/UseSorting";
+import SortingToggleBar from "./SortingToggleBar";
 
 type TableProps = {
     rows:DataStructure[]
@@ -30,31 +31,25 @@ const Table = ({rows}: TableProps) => {
     return (
         <TableContainer component={Paper}>
             <table>
+                
                 <TableHead>
-                    <TableRow>
+                <SortingToggleBar 
+                    sortingOptions={sortingOptions}
+                    SortBySeverity={SortBySeverity}
+                    SortByUrgency={SortByUrgency}
+                    SortByResponse={SortByResponse}
+                    SortByType={SortByType}
+                    SortByEventName={SortByEventName}
+                />
+                    <TableRow id="Titles">
                         <TableCell align="center">Alert Headline</TableCell>
-                        <TableCell align="center" onClick={SortByEventName}> 
-                            {sortingOptions.eventName===options.HighFirst? "^\n" : 
-                                (sortingOptions.eventName===options.LowFirst? "⌄\n" :"") }
-                                Event Name</TableCell>
+                        <TableCell align="center">Event Name</TableCell>
                         <TableCell align="center">Alert Authority</TableCell>
                         <TableCell align="center">Instructions</TableCell>
-                        <TableCell align="center" onClick={SortByType}>
-                        {sortingOptions.type===options.HighFirst? "^\n" : 
-                                (sortingOptions.type===options.LowFirst? "⌄\n" :"") }
-                            Alert Type</TableCell>
-                        <TableCell align="center" onClick={SortByResponse}>
-                        {sortingOptions.response===options.HighFirst? "^\n" : 
-                                (sortingOptions.response===options.LowFirst? "⌄\n" :"") }
-                            Currrent Response</TableCell>
-                        <TableCell align="center" onClick={SortByUrgency}>
-                        {sortingOptions.urgency===options.HighFirst? "^\n" : 
-                                (sortingOptions.urgency===options.LowFirst? "⌄\n" :"") }
-                            Current Urgency</TableCell>
-                        <TableCell align="center" onClick={SortBySeverity}>
-                        {sortingOptions.severity===options.HighFirst? "^\n" : 
-                                (sortingOptions.severity===options.LowFirst? "⌄\n" :"") }
-                            Alert Severity</TableCell>
+                        <TableCell align="center">Alert Type</TableCell>
+                        <TableCell align="center" >Currrent Response</TableCell>
+                        <TableCell align="center" >Current Urgency</TableCell>
+                        <TableCell align="center" >Alert Severity</TableCell>
                     </TableRow>
                 </TableHead>
             <TableBody>

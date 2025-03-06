@@ -2,7 +2,7 @@ table{
     padding: 10px;
 }
 
-thead{
+#Titles{
     background-color: lightblue;
     
     > tr > th {

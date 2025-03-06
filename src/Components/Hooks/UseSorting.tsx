@@ -21,7 +21,7 @@ const useSorting = (data: DataStructure[]) => {
         type:options.None,
         eventName:options.None,
     })
-    
+
     const sortingValues = new Map<string,number>()
     sortingValues.set("Extreme",4)
     sortingValues.set("Severe",3)
@@ -91,6 +91,7 @@ const useSorting = (data: DataStructure[]) => {
 
     },[sortingOptions])
 
+    
     const SortBySeverity = () => {
         SortBy(sortingOptions?.severity,"severity")
         
@@ -141,6 +142,7 @@ const useSorting = (data: DataStructure[]) => {
 
 export default useSorting;
 export {options};
+export type {Bools};
 
 
 /*
