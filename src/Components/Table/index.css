@@ -1,0 +1,12 @@
+table{
+    padding: 10px;
+}
+
+thead{
+    background-color: lightblue;
+    
+    > tr > th {
+        padding:10px;
+        font-size: xx-large !important;
+    }
+}
