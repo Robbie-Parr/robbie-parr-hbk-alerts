@@ -17,6 +17,7 @@ type DataResult = {
 
 const useAllAlerts = () => {
     const [alerts,setAlerts] = useState<DataResult[]>([]);
+    const [resetAlertsToggle,setResetAlertsToggle] = useState<Boolean>(false);
     useEffect(()=> {
         fetch("https://api.weather.gov/alerts").then(
             (res) => res.json()).then(res=> res.features).then(
@@ -42,17 +43,14 @@ const useAllAlerts = () => {
                 },[])
             ).then(
                     (value:DataResult[]) => {
-                        console.log(value)
                     setAlerts(value)
                     }
             )
             
         
-    },[])
-    //console.log("Alert!")
-    //console.log(alerts)
-
-    return alerts;
+    },[resetAlertsToggle])
+    
+    return {alerts,setAlerts,resetAlertsToggle,setResetAlertsToggle};
 }
 
 

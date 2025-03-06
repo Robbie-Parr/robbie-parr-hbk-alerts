@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -12,58 +12,51 @@ import {DataStructure} from "../Hooks/UseAllAlerts";
 import Row from "./Row";
 import './index.css';
 import useSorting,{options} from "../Hooks/UseSorting";
+import SortingToggleBar from "./SortingToggleBar";
+import { Button } from "@mui/material";
 
 type TableProps = {
     rows:DataStructure[]
+    setAlerts:Dispatch<SetStateAction<DataStructure[]>>
 }
 
-const Table = ({rows}: TableProps) => {
-    const {data,
-        sortingOptions,
-        SortBySeverity,
-        SortByUrgency,
-        SortByResponse,
-        SortByType,
-        SortByEventName
-    } = useSorting(rows);
+const Table = ({rows,setAlerts}: TableProps) => {
+
+
+    const [toggle,setToggle] = useState<Boolean>(true);//false by default
 
     return (
+        <>
+        <Button id="ToggleButton" onClick={() => setToggle(!toggle)}>{toggle? "Hide Options" :"Show Options"}</Button>
         <TableContainer component={Paper}>
             <table>
+                
                 <TableHead>
-                    <TableRow>
+                <SortingToggleBar 
+                    toggle={toggle}
+                    rows={rows}
+                    setAlerts={setAlerts}
+                    
+                />
+                    <TableRow id="Titles">
                         <TableCell align="center">Alert Headline</TableCell>
-                        <TableCell align="center" onClick={SortByEventName}> 
-                            {sortingOptions.eventName===options.HighFirst? "^\n" : 
-                                (sortingOptions.eventName===options.LowFirst? "⌄\n" :"") }
-                                Event Name</TableCell>
+                        <TableCell align="center">Event Name</TableCell>
                         <TableCell align="center">Alert Authority</TableCell>
                         <TableCell align="center">Instructions</TableCell>
-                        <TableCell align="center" onClick={SortByType}>
-                        {sortingOptions.type===options.HighFirst? "^\n" : 
-                                (sortingOptions.type===options.LowFirst? "⌄\n" :"") }
-                            Alert Type</TableCell>
-                        <TableCell align="center" onClick={SortByResponse}>
-                        {sortingOptions.response===options.HighFirst? "^\n" : 
-                                (sortingOptions.response===options.LowFirst? "⌄\n" :"") }
-                            Currrent Response</TableCell>
-                        <TableCell align="center" onClick={SortByUrgency}>
-                        {sortingOptions.urgency===options.HighFirst? "^\n" : 
-                                (sortingOptions.urgency===options.LowFirst? "⌄\n" :"") }
-                            Current Urgency</TableCell>
-                        <TableCell align="center" onClick={SortBySeverity}>
-                        {sortingOptions.severity===options.HighFirst? "^\n" : 
-                                (sortingOptions.severity===options.LowFirst? "⌄\n" :"") }
-                            Alert Severity</TableCell>
+                        <TableCell align="center">Alert Type</TableCell>
+                        <TableCell align="center" >Currrent Response</TableCell>
+                        <TableCell align="center" >Current Urgency</TableCell>
+                        <TableCell align="center" >Alert Severity</TableCell>
                     </TableRow>
                 </TableHead>
             <TableBody>
-                {data.map((row) => (
+                {rows.map((row) => (
                     <Row key={row.id} row={row}/>
                 ))}
             </TableBody>
         </table>
         </TableContainer>
+        </>
     );
 }
 

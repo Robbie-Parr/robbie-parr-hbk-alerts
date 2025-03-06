@@ -2,11 +2,16 @@ table{
     padding: 10px;
 }
 
-thead{
+#Titles{
     background-color: lightblue;
     
     > tr > th {
         padding:10px;
         font-size: xx-large !important;
     }
+}
+
+#ToggleButton{
+    justify-self: center;
+    width:100%;
 }
