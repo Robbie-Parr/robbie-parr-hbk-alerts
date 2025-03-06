@@ -21,6 +21,7 @@ const useSorting = (data: DataStructure[]) => {
         type:options.None,
         eventName:options.None,
     })
+    
     const sortingValues = new Map<string,number>()
     sortingValues.set("Extreme",4)
     sortingValues.set("Severe",3)
